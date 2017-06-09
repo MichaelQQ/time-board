@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Time Board</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans" rel="stylesheet">
+
+  <style media="screen">
+    *,
+    body {
+      font-family: 'Merriweather Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .wrapper {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      /*display: table;*/
+    }
+
+    .time {
+      /*display: table-cell;*/
+      /*vertical-align: middle;*/
+      width: 100vw;
+      position: relative;
+      line-height: 100vh;
+      font-size: 10vw;
+      font-weight: bold;
+      text-align: center;
+      vertical-align: middle;
+      color: white;
+      background: white;
+      background-size: cover;
+      text-shadow: 0 0 black, 0 0 black, .05em 0 black, 0 -.05em black;
+      transition: background 25s linear, transform 1s ease-in-out, color 25s linear, width 1s ease-in-out;
+    }
+    
+    .time.active {
+      width: calc(100vw - 200px);
+      transform: translateX(200px);
+      transition: background 25s linear, transform 1s ease-in-out, color 25s linear, width 1s ease-in-out;
+    }
+
+    .settings {
+      position: absolute;
+      left: -200px;
+      height: 100%;
+      width: 200px;
+      background: rgba(0,0,0,.9);
+      color: white;
+      margin: 0;
+      padding: 0;
+      transition: all 1s ease-in-out;
+      z-index: 2;
+    }
+    
+    .settings.active {
+      transform: translateX(200px);
+    }
+
+    .settings input {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root" class="wrapper"></div>
+
+  <!-- <script src="src/index.js"></script> -->
+  <script src="/bundle.js"></script>
+</body>
+
+</html>
