@@ -1,115 +1,22 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 import Time from './time'
-import Setting from './setting'
+import Settings from './settings'
 
 const h = React.createElement
 
-const getColorCode = () => Math.floor(Math.random() * 256)
-
 class App extends React.Component {
-  constructor (props) {
-    super(props)
-    
-    this.state = {
-      settings: {
-        show: false,
-        fixColor: false,
-        fontSize: 10
-      },
-      style: { 
-        color: 'rgb(255, 255, 255)'
-      },
-      timeConfig: {
-        hour12: true,
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-      }
-    }
-    this.toggleSettings = this.toggleSettings.bind(this)
-    this.toggleHour12   = this.toggleHour12.bind(this)
-    this.togglefixColor = this.togglefixColor.bind(this)
-    this.updateStyle    = this.updateStyle.bind(this)
-    this.changeFontSize = this.changeFontSize.bind(this)
-  }
-  
-  toggleSettings () {
-    return this.setState((prev, props) => ({
-      ...prev,
-      settings: {
-        ...prev.settings,
-        show: !this.state.settings.show
-      }
-    }))
-  }
-  
-  toggleHour12 () {
-    return this.setState((prev, props) => ({
-      ...prev,
-      timeConfig: {
-        ...prev.timeConfig,
-        hour12: !this.state.timeConfig.hour12 
-      }
-    }))
-  }
-  
-  togglefixColor () {
-    return this.setState((prev, props) => ({
-      ...prev,
-      settings: {
-        ...prev.settings,
-        fixColor: !this.state.settings.fixColor 
-      }
-    }))
-  }
-  
-  updateStyle () {
-    const a = Math.random().toFixed(2)
-    const rgba = `rgba( ${getColorCode()}, ${getColorCode()}, ${getColorCode()}, ${a})`
-    
-    console.log(rgba)
-    return this.setState((prev, props) => ({
-      ...prev,
-      style: {
-        backgroundColor: rgba,
-        color: rgba
-      }
-    }))
-  }
-  
-  changeFontSize (change) {
-    let newFontSize = this.state.settings.fontSize + change
-    newFontSize = newFontSize < 1 ? 1 : newFontSize
-    newFontSize = newFontSize > 17 ? 17 : newFontSize
-    
-    return this.setState((prev, props) => ({
-      ...prev,
-      settings: {
-        ...prev.settings,
-        fontSize: newFontSize
-      }
-    }))
+  componentWillMount () {
+    this.props.dispatch({ type: 'UPDATE_STYLE' })
   }
   
   render () {
-    const { timeConfig, settings, style } = this.state
+    const { style } = this.props
     
     return h('div', { className: 'wrapper' }, 
-      h(Setting, {
-        settings: settings,
-        timeConfig: timeConfig,
-        toggleHour12: this.toggleHour12,
-        togglefixColor: this.togglefixColor,
-        toggleSettings: this.toggleSettings,
-        changeFontSize: this.changeFontSize
-      }),
-      h(Time, { 
-        config: timeConfig,
-        settings: settings,
-        style: style,
-        updateStyle: this.updateStyle
-      }),
+      h(Settings),
+      h(Time),
       h('div', { style: { position: 'absolute', right: '0', bottom: '0' } },   
         `${style.color}`
       )
@@ -117,5 +24,11 @@ class App extends React.Component {
   }
 }
 
-export default App
+const mapStateToProps = (state) => {
+  return {
+    style: state.style
+  }
+}
+
+export default connect(mapStateToProps, null)(App)
 
