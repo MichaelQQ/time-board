@@ -5,31 +5,22 @@ module.exports = {
   context: resolve(__dirname, 'src'),
 
   entry: {
-    index: './index.js'
+    js: './index.js',
+    vendor: ['react', 'react-dom', 'redux', 'react-redux']
   },
   output: {
     filename: 'bundle.js',
-    // the output bundle
     path: resolve(__dirname, 'dist'),
-    publicPath: '/'
-    // necessary for HMR to know where to load the hot update chunks
   },
-  devtool: 'inline-source-map',
-  devServer: {
-    historyApiFallback: true,
-    hot: true,
-    // enable HMR on the server
-    contentBase: resolve(__dirname, './'),
-    // match the output path
-    publicPath: '/'
-    // match the output `publicPath`
-  },
+
+  devtool: 'cheap-module-source-map',
+
   module: {
     rules: [
       {
         test: /\.jsx?$/,
-        use: [ 'babel-loader', ],
-        exclude: /node_modules/
+        loader: [ 'babel-loader', ],
+        exclude: /node_modules/,
       },
       // {
       //   test: /\.css$/,
@@ -39,9 +30,37 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: Infinity,
+      filename: 'vendor.bundle.js'
+    }),
+    new webpack.NamedModulesPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      }
+    }),
     new webpack.LoaderOptionsPlugin({
       minimize: true,
       debug: false
     }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false,
+        screw_ie8: true,
+        conditionals: true,
+        unused: true,
+        comparisons: true,
+        sequences: true,
+        dead_code: true,
+        evaluate: true,
+        if_return: true,
+        join_vars: true,
+      },
+      output: {
+        comments: false,
+      },
+    })
   ],
 };
