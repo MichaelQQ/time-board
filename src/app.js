@@ -12,7 +12,11 @@ class App extends React.Component {
     super(props)
     
     this.state = {
-      settings: false,
+      settings: {
+        show: false,
+        fixColor: false,
+        fontSize: 10
+      },
       style: { 
         color: 'rgb(255, 255, 255)'
       },
@@ -24,26 +28,51 @@ class App extends React.Component {
       }
     }
     this.toggleSettings = this.toggleSettings.bind(this)
+    this.toggleHour12 = this.toggleHour12.bind(this)
+    this.togglefixColor = this.togglefixColor.bind(this)
     this.updateStyle = this.updateStyle.bind(this)
   }
   
   toggleSettings () {
-    this.setState((prev, props) => ({
+    return this.setState((prev, props) => ({
       ...prev,
-      settings: !this.state.settings 
+      settings: {
+        ...prev.settings,
+        show: !this.state.settings.show
+      }
+    }))
+  }
+  
+  toggleHour12 () {
+    return this.setState((prev, props) => ({
+      ...prev,
+      timeConfig: {
+        ...prev.timeConfig,
+        hour12: !this.state.timeConfig.hour12 
+      }
+    }))
+  }
+  
+  togglefixColor () {
+    return this.setState((prev, props) => ({
+      ...prev,
+      settings: {
+        ...prev.settings,
+        fixColor: !this.state.settings.fixColor 
+      }
     }))
   }
   
   updateStyle () {
-    const a = Math.random()
-    const rgb  = `rgb( ${getColorCode()}, ${getColorCode()}, ${getColorCode()})`
+    const a = Math.random().toFixed(2)
     const rgba = `rgba( ${getColorCode()}, ${getColorCode()}, ${getColorCode()}, ${a})`
     
-    this.setState((prev, props) => ({
+    console.log(rgba)
+    return this.setState((prev, props) => ({
       ...prev,
       style: {
         backgroundColor: rgba,
-        color: rgb
+        color: rgba
       }
     }))
   }
@@ -52,10 +81,16 @@ class App extends React.Component {
     const { timeConfig, settings, style } = this.state
     
     return h('div', { className: 'wrapper' }, 
-      h(Setting, { active: settings, toggleSettings: this.toggleSettings }),
+      h(Setting, {
+        settings: settings,
+        timeConfig: timeConfig,
+        toggleHour12: this.toggleHour12,
+        togglefixColor: this.togglefixColor,
+        toggleSettings: this.toggleSettings 
+      }),
       h(Time, { 
         config: timeConfig,
-        active: settings,
+        settings: settings,
         style: style,
         updateStyle: this.updateStyle
       }),
