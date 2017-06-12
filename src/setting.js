@@ -11,6 +11,22 @@ const spanStyle = {
   margin: '0 .5em'
 }
 
+const btnStyle = {
+  display: 'inline-block',
+  background: 'white',
+  color: 'black',
+  borderRadius: '100%',
+  margin: '0 .5em',
+  padding: '0 .2em'
+}
+
+const aboutStyle = {
+  width: '100%',
+  // height: '50px',
+  position: 'absolute',
+  bottom: '0'
+}
+
 const Switch = ({ setting, toggle }) => 
   h('div', {
     style: { fontSize: '.5em', textAlign: 'left' },
@@ -25,7 +41,8 @@ const Setting = ({
   timeConfig,
   toggleSettings,
   toggleHour12,
-  togglefixColor
+  togglefixColor,
+  changeFontSize
 }) =>
   h('div', {
     className: `${settings.show ? 'settings active' : 'settings'}` 
@@ -44,11 +61,21 @@ const Setting = ({
       ),
       h('li', { style: listStyle },
         h(Switch, { setting: settings.fixColor, toggle: togglefixColor }),
-        h('span', { style: spanStyle }, 'fixed time color')
+        h('span', { style: spanStyle }, 'White time color')
       ),
       h('li', { style: listStyle },
-        h('span', { style: spanStyle }, 'font size')
-      )
+        h('span', { style: spanStyle }, 'font size'),
+        h('div', { style: { display: 'inline-block' } }, 
+          h('a', { href: 'javascript: void 0', onClick: () => changeFontSize(-1) }, 
+            h('div', { style: btnStyle }, '-')
+          ),
+          h('div', { style: { display: 'inline-block' } }, settings.fontSize),
+          h('a', { href: 'javascript: void 0', onClick: () => changeFontSize(1) },
+            h('div', { style: btnStyle }, '+')
+          )
+        )
+      ),
+      h('div', { style: aboutStyle }, 'MichaelQQ © All Rights Reversed')
     ),
   )
   

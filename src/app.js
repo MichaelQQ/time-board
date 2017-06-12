@@ -28,9 +28,10 @@ class App extends React.Component {
       }
     }
     this.toggleSettings = this.toggleSettings.bind(this)
-    this.toggleHour12 = this.toggleHour12.bind(this)
+    this.toggleHour12   = this.toggleHour12.bind(this)
     this.togglefixColor = this.togglefixColor.bind(this)
-    this.updateStyle = this.updateStyle.bind(this)
+    this.updateStyle    = this.updateStyle.bind(this)
+    this.changeFontSize = this.changeFontSize.bind(this)
   }
   
   toggleSettings () {
@@ -77,6 +78,20 @@ class App extends React.Component {
     }))
   }
   
+  changeFontSize (change) {
+    let newFontSize = this.state.settings.fontSize + change
+    newFontSize = newFontSize < 1 ? 1 : newFontSize
+    newFontSize = newFontSize > 17 ? 17 : newFontSize
+    
+    return this.setState((prev, props) => ({
+      ...prev,
+      settings: {
+        ...prev.settings,
+        fontSize: newFontSize
+      }
+    }))
+  }
+  
   render () {
     const { timeConfig, settings, style } = this.state
     
@@ -86,7 +101,8 @@ class App extends React.Component {
         timeConfig: timeConfig,
         toggleHour12: this.toggleHour12,
         togglefixColor: this.togglefixColor,
-        toggleSettings: this.toggleSettings 
+        toggleSettings: this.toggleSettings,
+        changeFontSize: this.changeFontSize
       }),
       h(Time, { 
         config: timeConfig,
