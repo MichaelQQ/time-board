@@ -36,13 +36,15 @@
       background: white;
       background-size: cover;
       text-shadow: 0 0 black, 0 0 black, .05em 0 black, 0 -.05em black;
-      transition: background 25s linear, transform 1s ease-in-out, width 1s ease-in-out; /* , color 25s linear */
+      transition: transform 1s ease-in-out, width 1s ease-in-out
+      , color 1s linear, background 1s linear;
     }
     
     .time.active {
       width: calc(100vw - 200px);
       transform: translateX(200px);
-      transition: background 25s linear, transform 1s ease-in-out, width 1s ease-in-out; /* , color 25s linear */
+      transition: transform 1s ease-in-out, width 1s ease-in-out
+      , color 1s linear, background 1s linear;
     }
 
     .settings {
@@ -62,16 +64,12 @@
       transform: translateX(200px);
     }
 
-    .settings input {
-      display: none;
-    }
-    
     i {
       transition: transform 1s ease-in-out;
     }
     
     i.active {
-      transform: rotate(0.5turn);
+      transform: rotate(0.9turn);
       transition: transform 1s ease-in-out;
     }
     
@@ -82,7 +80,7 @@
       background: #695e5e;
       border-radius: 2em;
       padding: .2em;
-      transition: all .5s linear;
+      transition: all .3s linear;
     }
 
     .switch-inner {
@@ -93,17 +91,17 @@
       background: white;
       border-radius: 100%;
       margin: 0;
-      transition: all .5s linear;
+      transition: all .3s linear;
     }
 
     .switch.active {
       background: #61c761;
-      transition: all .5s linear;
+      transition: all .3s linear;
     }
 
     .switch.active .switch-inner {
       transform: translateX(3em);
-      transition: all .5s linear;
+      transition: all .3s linear;
     }
   </style>
 </head>

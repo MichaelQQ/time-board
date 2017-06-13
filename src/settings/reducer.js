@@ -1,8 +1,11 @@
 const initState = {
-  fixColor: false,
+  fixTimeColor: false,
+  fixBGColor: false,
   show: false,
   fontSize: 10,
-  hour12: true
+  hour12: true,
+  timeColor: '#ffffff',
+  backgroundColor: '#dede2d'
 }
 
 const reducer = (state = initState, action) => {
@@ -20,7 +23,22 @@ const reducer = (state = initState, action) => {
     case 'TOGGLE_FIX_TIME_COLOR':
       return {
         ...state,
-        fixColor: !state.fixColor
+        fixTimeColor: !state.fixTimeColor
+      }
+    case 'TOGGLE_FIX_BG_COLOR':
+      return {
+        ...state,
+        fixBGColor: !state.fixBGColor
+      }
+    case 'CHANGE_TIME_COLOR':
+      return {
+        ...state,
+        timeColor: action.value
+      }
+    case 'CHANGE_BACKGROUND_COLOR':
+      return {
+        ...state,
+        backgroundColor: action.value
       }
     case 'CHANGE_FONT_SIZE':
       let newFontSize = state.fontSize + action.value

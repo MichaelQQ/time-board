@@ -40,7 +40,7 @@ module.exports = {
     contentBase: resolve(__dirname, './'),
     // match the output path
 
-    publicPath: '/'
+    publicPath: '/dist'
     // match the output `publicPath`
   },
 

@@ -1,5 +1,6 @@
 const initState = {
-  color: 'rgb(255, 255, 255)'
+  color: 'rgb(255, 255, 255)',
+  backgroundColor: 'rgb(255, 255, 255)'
 }
 
 const getColorCode = () => Math.floor(Math.random() * 256)

@@ -35,13 +35,23 @@ class Time extends React.Component {
   
   render () {
     const { settings, style } = this.props
-    const { fixColor, show, fontSize } = settings
+    const {
+      fixTimeColor,
+      fixBGColor,
+      show,
+      fontSize,
+      timeColor,
+      backgroundColor
+    } = settings
     
     return h('div', {
       className: `${show ? 'time active' : 'time'}`,
-      style: fixColor
-        ? { ...style, color: 'white', fontSize: fontSize + 'vw' }
-        : { ...style, fontSize: fontSize + 'vw' }
+      style: {
+        ...style,
+        color: fixTimeColor ? timeColor : style.color,
+        backgroundColor: fixBGColor ? backgroundColor : style.backgroundColor,
+        fontSize: fontSize + 'vw'
+      }
     },
       this.state.time
     )
